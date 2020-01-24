@@ -15,7 +15,37 @@ limitations under the License.
 */
 
 // TODO 2.6 - Handle the notificationclose event
+self.addEventListener('notificationclose', event => {
+    const notification = event.notification;
+    const primaryKey = notification.data.primaryKey;
+  
+    console.log('Closed notification: ' + primaryKey);
+  });
 
 // TODO 2.7 - Handle the notificationclick event
+// self.addEventListener('notificationclick', event => {
+//     // TODO 2.8 - change the code to open a custom page
+//     const notification = event.notification;
+//     let primaryKey = notification.data.primaryKey;
+//     // clients.openWindow('https://google.com');
+//     clients.openWindow('samples/page' + primaryKey + '.html');
+//     notification.close()    
+//   });
+self.addEventListener('notificationclick', event => {
+    const notification = event.notification;
+    const primaryKey = notification.data.primaryKey;
+    const action = event.action;
+  
+    if (action === 'close') {
+      notification.close();
+    } else {
+      clients.openWindow('samples/page' + primaryKey + '.html');
+      notification.close();
+    }
+  
+    // TODO 5.3 - close all notifications when one is clicked
+  
+  });
+
 
 // TODO 3.1 - add push event listener
