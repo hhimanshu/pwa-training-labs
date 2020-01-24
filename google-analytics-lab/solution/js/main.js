@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Google Inc.
+Copyright 2018 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -31,106 +31,107 @@ limitations under the License.
     return;
   }
 
-  // Request notification permission
-  Notification.requestPermission(function(status) {
-    console.log('Notification permission status:', status);
-  });
+  window.addEventListener('load', () => {
+    // Register service worker
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => {
+        console.log('Service Worker Registered!', reg);
+      })
+      .catch(err => {
+        console.log('Service Worker registration failed: ', err);
+      });
 
-  // Register service worker
-  navigator.serviceWorker.register('sw.js')
-  .then(function(reg) {
-    console.log('Service Worker Registered!', reg);
-  })
-  .catch(function(err) {
-    console.log('Service Worker registration failed: ', err);
-  });
+    // Request notification permission
+    Notification.requestPermission(function(status) {
+      console.log('Notification permission status:', status);
+    });
+  });
 
   // Send custom analytics event
 
-  var purchaseButton = document.getElementById('purchase');
-  purchaseButton.onclick = markPurchase;
+  // TODO RENAME
 
-  function markPurchase() {
-    ga('send', {
-      hitType: 'event',
-      eventCategory: 'products',
-      eventAction: 'purchase',
-      eventLabel: 'Summer products launch'
+  const favorite = () => {
+    gtag('event', 'favorite', {
+      'event_category': 'photos',
+      'event_label': 'cats'
     });
-  }
+  };
+  const favoriteButton = document.getElementById('favorite');
+  favoriteButton.addEventListener('click', favorite);
 
   // Subscribe functionality
 
-  var subscribeButton = document.getElementById('subscribe');
-  subscribeButton.onclick = subscribe;
-
-  function subscribe() {
+  const subscribe = () => {
     navigator.serviceWorker.ready
-    .then(function(reg) {
+    .then(reg => {
       reg.pushManager.getSubscription()
-      .then(function(sub) {
+      .then(sub => {
         if (!sub) {
           reg.pushManager.subscribe({userVisibleOnly: true})
-          .then(function(subscription) {
+          .then(subscription => {
             console.log('Subscribed to push,', subscription);
-            ga('send', 'event', 'push', 'subscribe', 'success');
+            gtag('event', 'subscribe', {
+              'event_category': 'push',
+              'event_label': 'cat updates'
+            });
           })
-          .catch(function(error) {
+          .catch(error => {
             if (Notification.permission === 'denied') {
               console.warn('Subscribe failed, notifications are blocked');
-              ga('send', 'event', 'push', 'subscribe-err', 'blocked');
+              gtag('event', 'subscribe_blocked', {
+                'event_category': 'push',
+                'event_label': 'cat updates'
+              });
             } else {
               console.error('Unable to subscribe to push', error);
-              ga('send', 'event', 'push', 'subscribe-err');
+              gtag('event', 'subscribe_error', {
+                'event_category': 'push',
+                'event_label': 'cat updates'
+              });
             }
           });
         } else {
           console.log('Already subscribed');
         }
-      }).catch(function(error) {
+      }).catch(error => {
         console.log('Cannot access Subscription object', error);
       });
     });
-  }
+  };
+  const subscribeButton = document.getElementById('subscribe');
+  subscribeButton.addEventListener('click', subscribe);
 
   // Unsubscribe functionality
 
-  var unsubscribeButton = document.getElementById('unsubscribe');
-  unsubscribeButton.onclick = unsubscribe;
-
-  function unsubscribe() {
+  const unsubscribe = () => {
     navigator.serviceWorker.ready
-    .then(function(reg) {
+    .then(reg => {
       reg.pushManager.getSubscription()
-      .then(function(sub) {
+      .then(sub => {
         if (sub) {
           sub.unsubscribe()
-          .then(function() {
+          .then(() => {
             console.log('Unsubscribed!');
-            ga('send', 'event', 'push', 'unsubscribe', 'success');
+            gtag('event', 'unsubscribe', {
+              'event_category': 'push',
+              'event_label': 'cat updates'
+            });
           });
         } else {
           console.log('Not currently subscribed');
         }
       });
     })
-    .catch(function(error) {
+    .catch(error => {
       console.warn('Error unsubscribing', error);
-      ga('send', 'event', 'push', 'unsubscribe-err');
+      gtag('event', 'unsubscribe_error', {
+        'event_category': 'push',
+        'event_label': 'cat updates'
+      });
     });
-  }
-
-  // Optional - Use hitCallback to send a hit
-  var link = document.getElementById('external');
-  link.addEventListener('click', function(event) {
-    event.preventDefault();
-    function navigate() {
-      window.location.href = event.target.href;
-    }
-    setTimeout(navigate, 1000);
-    ga('send', 'event', 'outbound', 'sponsor1', {
-      hitCallback: navigate
-    });
-  });
+  };
+  const unsubscribeButton = document.getElementById('unsubscribe');
+  unsubscribeButton.addEventListener('click', unsubscribe);
 
 })();

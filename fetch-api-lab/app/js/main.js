@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Google Inc.
+Copyright 2018 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,145 +13,59 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-var app = (function() {
-  'use strict';
 
-  function logResult(result) {
-    console.log(result);
-  }
+// helper functions ----------
 
-  function logError(error) {
-    console.log('Looks like there was a problem: \n', error);
-  }
+function logResult(result) {
+  console.log(result);
+}
 
-  // TODO 2.1a
-    if(!'fetch' in window) {
-        console.log('Fetch API not found, try including the polyfill');
-        return;
-    }
+function logError(error) {
+  console.log('Looks like there was a problem:', error);
+}
 
-  function fetchJSON() {
-    // TODO 2.1b
-      fetch('examples/animals.json')
-          .then(validateResponse)
-          .then(readResponseAsJSON)
-          .then(logResult)
-          .catch(logError);
-  }
 
-  function validateResponse(response) {
-    if(!response.ok) {
-      throw Error(response.statusText);
-    }
-      return response;
-  }
+// Fetch JSON ----------
 
-  function readResponseAsJSON(response) {
-      return response.json();
-  }
+function fetchJSON() {
+  // TODO
+}
+const jsonButton = document.getElementById('json-btn');
+jsonButton.addEventListener('click', fetchJSON);
 
-  function showImage(responseAsBlob) {
-    var container = document.getElementById('container');
-    var imageElem = document.createElement('img');
-    container.appendChild(imageElem);
-    var imageUrl = URL.createObjectURL(responseAsBlob);
-    imageElem.src = imageUrl;
-  }
 
-  function readResponseAsBlob(response) {
-    // TODO 3b
-      if(!response.ok) {
-          throw Error(response.statusText);
-      }
-      return response.blob();
-  }
+// Fetch Image ----------
 
-  function fetchImage() {
-    // TODO 3c
-      fetch('examples/kitten.jpg')
-          .then(validateResponse)
-          .then(readResponseAsBlob)
-          .then(showImage)
-          .catch(logError);
+function fetchImage() {
+  // TODO
+}
+const imgButton = document.getElementById('img-btn');
+imgButton.addEventListener('click', fetchImage);
 
-  }
 
-  function showText(responseAsText) {
-    //  TODO 4a
-      var message = document.getElementById('message');
-      message.textContent = responseAsText;
-  }
+// Fetch text ----------
 
-  function readResponseAsText(response) {
-    // TODO 4b
-      if(! response.ok) {
-        throw Error(response.statusText);
-      }
-      return response.text();
-  }
+function fetchText() {
+  // TODO
+}
+const textButton = document.getElementById('text-btn');
+textButton.addEventListener('click', fetchText);
 
-  function fetchText() {
-    // TODO 4c
-      fetch('examples/words.txt')
-          .then(validateResponse)
-          .then(readResponseAsText)
-          .then(showText)
-          .catch(logError);
-  }
 
-  function headRequest() {
-    // TODO 5.1
-      fetch('examples/words.txt', {
-        method: 'HEAD'
-      })
-          .then(validateResponse)
-          .then(logSize)
-          .then(readResponseAsText)
-          .then(logResult)
-          .catch(logError)
-  }
+// HEAD request ----------
 
-  function logSize(response) {
-    // TODO 5.2
-      console.log(response);
-      console.log(response.headers.get('content-length'));
-      return response;
-  }
+function headRequest() {
+  // TODO
+}
+const headButton = document.getElementById('head-btn');
+headButton.addEventListener('click', headRequest);
 
-  /* NOTE: Never send unencrypted user credentials in production! */
-  function postRequest() {
-    // TODO 6.2
-      var formData = new FormData(document.getElementById('myForm'));
 
-      var customHeaders = new Headers();
-      customHeaders.append('Content-Type', 'text/plain');
-      customHeaders.append('X-CUSTOM', 'hello world');
+// POST request ----------
 
-      fetch('http://localhost:5000', {
-          method: 'POST',
-          body: formData,
-          headers: customHeaders
-
-      })
-          .then(validateResponse)
-          .then(readResponseAsText)
-          .then(logResult)
-          .catch(logError);
-  }
-
-  // Don't worry if you don't understand this, it's not part of the Fetch API.
-  // We are using the JavaScript Module Pattern to enable unit testing of
-  // our functions.
-  return {
-    readResponseAsJSON: (readResponseAsJSON),
-    readResponseAsBlob: (readResponseAsBlob),
-    readResponseAsText: (readResponseAsText),
-    validateResponse: (validateResponse),
-    fetchJSON: (fetchJSON),
-    fetchImage: (fetchImage),
-    fetchText: (fetchText),
-    headRequest: (headRequest),
-    postRequest: (postRequest)
-  };
-
-})();
+/* NOTE: Never send unencrypted user credentials in production! */
+function postRequest() {
+  // TODO
+}
+const postButton = document.getElementById('post-btn');
+postButton.addEventListener('click', postRequest);

@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Google Inc.
+Copyright 2018 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,13 +15,12 @@ limitations under the License.
 */
 /*jshint esversion: 6*/
 
-var app = (function() {
+const app = (() => {
 
   function getImageName(country) {
-    // TODO 2.1 - create a promise
     country = country.toLowerCase();
-    var promiseOfImageName = new Promise(function(resolve, reject) {
-      setTimeout(function() {
+    const promiseOfImageName = new Promise((resolve, reject) => {
+      setTimeout(() => {
         if (country === 'spain' || country === 'chile' || country === 'peru') {
           resolve(country + '.png');
         } else {
@@ -34,8 +33,7 @@ var app = (function() {
   }
 
   function isSpain(country) {
-    // TODO - Optional
-    return new Promise(function(resolve, reject) {
+    return new Promise((resolve, reject) => {
       if (country === 'Spain') {
         resolve('It is Spain!');
       } else {
@@ -45,26 +43,23 @@ var app = (function() {
   }
 
   function flagChain(country) {
-    // TODO 2.2 - use the promise
     return getImageName(country)
     .then(logSuccess)
     .catch(logError);
   }
 
-  function spainTest(country) {
-    // TODO - Optional
-    return isSpain(country)
-    .then(returnTrue)
-    .catch(returnFalse);
-  }
-
   function allFlags(promiseList) {
-    // TODO
+
+    // use promise.all
+
   }
 
-  // TODO 4.1 - Promise.all
 
-  // TODO 4.2 - Promise.race
+  // call the allFlags function
+
+
+  // use Promise.race
+
 
   /* Helper functions */
 
@@ -74,10 +69,6 @@ var app = (function() {
 
   function logError(err) {
     console.log('Oh no!:\n' + err);
-  }
-
-  function returnTrue() {
-    return true;
   }
 
   function returnFalse() {
@@ -96,10 +87,12 @@ var app = (function() {
   }
 
   function appendFlag(flagBlob) {
-    var flagImage = document.createElement('img');
-    var flagDataURL = URL.createObjectURL(flagBlob);
+    const flagImage = document.createElement('img');
+    const flagDataURL = URL.createObjectURL(flagBlob);
     flagImage.src = flagDataURL;
-    document.body.appendChild(flagImage);
+    const imgContainer = document.getElementById('img-container');
+    imgContainer.appendChild(flagImage);
+    imgContainer.style.visibility = 'visible';
   }
 
   function fallbackName() {
@@ -113,7 +106,6 @@ var app = (function() {
     getImageName: (getImageName),
     flagChain: (flagChain),
     isSpain: (isSpain),
-    spainTest: (spainTest),
     fetchFlag: (fetchFlag),
     processFlag: (processFlag),
     appendFlag: (appendFlag),

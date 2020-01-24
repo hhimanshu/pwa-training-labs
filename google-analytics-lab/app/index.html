@@ -1,5 +1,5 @@
 <!--
-Copyright 2016 Google Inc.
+Copyright 2018 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <!-- Set the viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,33 +22,40 @@ limitations under the License.
   <meta charset="utf-8">
   <!-- Include manifest -->
   <link rel="manifest" href="manifest.json">
+  <!-- link CSS -->
+  <link rel="stylesheet" href="styles/main.css">
   <!-- Set title -->
   <title>Analytics Lab</title>
-
 </head>
 
 <body>
 
-  <h1>Google Analytics codelab</h1>
-  <p>This page must be accessed using HTTPS or via localhost.</p>
+  <header>
+    <h1>Google Analytics lab</h1>
+  </header>
 
-  <a href="pages/other.html" id="other">Other page</a>
+  <section class="note">
+    <p>This page must be accessed using
+      <strong>HTTPS</strong> or via <strong>localhost</strong>.
+    </p>
+  </section>
 
-  <br><br>
+  <section>
+    <div class="img-container">
+      <img src="images/cat.jpg" alt="An adorable cat.">
+    </div>
+    <div class="buttons-container">
+      <button id="favorite">Favorite</button>
+      <button id="subscribe">Subscribe</button>
+      <button id="unsubscribe">Unsubscribe</button>
+    </div>
+  </section>
 
-  <button id="purchase">BUY NOW!!!</button>
+  <footer>
+    <a href="pages/other.html" id="other">Other page</a>
+  </footer>
 
-  <br><br>
-
-  <button id="subscribe">subscribe</button><button id="unsubscribe">unsubscribe</button>
-
-  <br><br>
-
-  <a href="https://www.google.com/" id="external">Special offers</a>
-
-  <br><br>
-
-  <!-- TODO 3: Add tracking snippet -->
+  <!-- TODO Add tracking snippet -->
 
   <script src="js/main.js"></script>
 

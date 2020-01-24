@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Google Inc.
+Copyright 2018 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,89 +15,38 @@ limitations under the License.
 */
 /*jshint esversion: 6*/
 
-var app = (function() {
+const app = (() => {
 
   function getImageName(country) {
-    // TODO 2.1 - create a promise
-      country = country.toLowerCase();
-      var promiseOfImageName = new Promise(function (resolve, reject) {
-        setTimeout(function(){
-          if (country === 'spain' || country === 'chile' || country === 'peru') {
-              resolve(country + '.png');
-          } else {
-              reject(Error('Didn\'t receive a valid country name'));
-          }
 
-        }, 1000);
-      });
+    // create and return a promise
 
-      console.log(promiseOfImageName);
-      return promiseOfImageName;
   }
 
   function isSpain(country) {
-    // TODO - Optional
-      var country = country.toLowerCase();
-      var booleanPromise = new Promise(function (resolve, reject) {
-        if(country === 'spain') {
-          resolve(true);
-        } else {
-          reject(false);
-        }
-      });
-      return booleanPromise;
+
+    // Optional - create and return a promise that resolves if input is "Spain"
+
   }
 
   function flagChain(country) {
-    // TODO 2.2 - use the promise
-      return getImageName(country)
-          .catch(fallbackName)
-          .then(fetchFlag)
-          .then(processFlag)
-          .then(appendFlag)
-          .catch(logError);
-  }
 
-  function spainTest(country) {
-    // TODO - Optional
-      return isSpain(country)
-          .then(returnTrue)
-          .catch(returnFalse)
+    // use the promise
+
   }
 
   function allFlags(promiseList) {
-    // TODO
-     return Promise.all(promiseList)
-          .then(function(data){
-            return data;
-          })
-          .catch(function(error){
-            return false;
-          })
+
+    // use promise.all
+
   }
 
-  // TODO 4.1 - Promise.all
-    var promises = [
-        getImageName('Spain'),
-        getImageName('Chile'),
-        getImageName('Peru')
-    ];
-    allFlags(promises).then(function(result) {
-        console.log(result);
-    });
 
-  // TODO 4.2 - Promise.race
-    var promise1 = new Promise(function(resolve, reject) {
-        setTimeout(resolve, 500, 'one');
-    });
+  // call the allFlags function
 
-    var promise2 = new Promise(function(resolve, reject) {
-        setTimeout(resolve, 100, 'two');
-    });
 
-    Promise.race([promise1, promise2])
-        .then(logSuccess)
-        .catch(logError);
+  // use Promise.race
+
 
   /* Helper functions */
 
@@ -107,10 +56,6 @@ var app = (function() {
 
   function logError(err) {
     console.log('Oh no!:\n' + err);
-  }
-
-  function returnTrue() {
-    return true;
   }
 
   function returnFalse() {
@@ -129,10 +74,12 @@ var app = (function() {
   }
 
   function appendFlag(flagBlob) {
-    var flagImage = document.createElement('img');
-    var flagDataURL = URL.createObjectURL(flagBlob);
+    const flagImage = document.createElement('img');
+    const flagDataURL = URL.createObjectURL(flagBlob);
     flagImage.src = flagDataURL;
-    document.body.appendChild(flagImage);
+    const imgContainer = document.getElementById('img-container');
+    imgContainer.appendChild(flagImage);
+    imgContainer.style.visibility = 'visible';
   }
 
   function fallbackName() {
@@ -146,7 +93,6 @@ var app = (function() {
     getImageName: (getImageName),
     flagChain: (flagChain),
     isSpain: (isSpain),
-    spainTest: (spainTest),
     fetchFlag: (fetchFlag),
     processFlag: (processFlag),
     appendFlag: (appendFlag),

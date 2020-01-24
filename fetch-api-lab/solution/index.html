@@ -1,5 +1,5 @@
 <!--
-Copyright 2016 Google Inc.
+Copyright 2018 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,63 +14,59 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
   <head>
-
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <meta charset="utf-8">
-    <title>Fetch API Tutorial</title>
-
+    <title>Fetch API lab</title>
+    <link rel="stylesheet" href="styles/main.css">
   </head>
-
   <body>
 
-    <h1>Fetch API Tutorial</h1>
+    <header>
+      <h1>Fetch API Lab</h1>
+    </header>
 
-    <button id="json-button">Fetch JSON</button>
-    <button id="img-button">Fetch image</button>
-    <button id="text-button">Fetch text</button>
-    <button id="head-button">HEAD request</button>
+    <main>
+      <section class="buttons-container">
+        <button id="json-btn">Fetch JSON</button>
+        <button id="img-btn">Fetch image</button>
+        <button id="text-btn">Fetch text</button>
+        <button id="head-btn">HEAD request</button>
+      </section>
 
-    <br><br>
-
-    <form action="#" id="myForm">
-        <div>
+      <section class="form-container">
+        <form action="#" id="msg-form">
+          <div class="form-item">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="user_name" />
-        </div>
-        <br>
-        <div>
+            <input type="text" id="name" name="name" />
+          </div>
+          <div class="form-item">
             <label for="msg">Message:</label>
-            <textarea id="msg" name="user_message"></textarea>
-        </div>
-        <br>
-        <button id="post-button" type="button">POST request</button>
-        <br>
-    </form>
+            <textarea id="msg" name="message"></textarea>
+          </div>
+          <button id="post-btn" type="button">POST request</button>
+        </form>
+      </section>
 
-    <br>
+      <section class="img-container" id="img-container">
+        <!-- image licensed CC0 - no attribution required https://unsplash.com/photos/Pzu9f6Nby5w -->
+        <!-- image added dynamically -->
+      </section>
 
-    <div id="container"></div>
+      <section class="text-container">
+        <p id="message">
+          <!-- sample text from https://en.wikipedia.org/wiki/Fetch_(game) -->
+          <!-- message added dynamically -->
+        </p>
+      </section>
 
-    <p id="message"></p>
+    </main>
+
+    <footer>
+      <a href="https://github.com/google-developer-training/pwa-training-labs">GitHub</a>
+    </footer>
 
     <script src="js/main.js"></script>
-
-    <script>
-      var jsonButton = document.getElementById('json-button');
-      jsonButton.addEventListener('click', app.fetchJSON);
-      var imgButton = document.getElementById('img-button');
-      imgButton.addEventListener('click', app.fetchImage);
-      var textButton = document.getElementById('text-button');
-      textButton.addEventListener('click', app.fetchText);
-      var headButton = document.getElementById('head-button');
-      headButton.addEventListener('click', app.headRequest);
-      var postButton = document.getElementById('post-button');
-      postButton.addEventListener('click', app.postRequest);
-    </script>
-
   </body>
-
 </html>

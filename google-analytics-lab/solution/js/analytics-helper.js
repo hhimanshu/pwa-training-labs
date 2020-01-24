@@ -1,5 +1,5 @@
 /*
-Copyright 2016 Google Inc.
+Copyright 2018 Google Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -14,17 +14,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-// Set this to your tracking ID
-var trackingId = 'UA-XXXXXXXX-Y';
+// Set this to your tracking ID: UA-XXXXXXXX-Y
+const trackingId = null;
 
-function sendAnalyticsEvent(eventAction, eventCategory) {
-  'use strict';
+const sendAnalyticsEvent = (eventAction, eventCategory) => {
 
   console.log('Sending analytics event: ' + eventCategory + '/' + eventAction);
 
   if (!trackingId) {
     console.error('You need your tracking ID in analytics-helper.js');
-    console.error('Add this code:\nvar trackingId = \'UA-XXXXXXXX-X\';');
+    console.error('Add this code:\nconst trackingId = \'UA-XXXXXXXX-X\';');
     // We want this to be a safe method, so avoid throwing unless absolutely necessary.
     return Promise.resolve();
   }
@@ -37,13 +36,13 @@ function sendAnalyticsEvent(eventAction, eventCategory) {
   }
 
   return self.registration.pushManager.getSubscription()
-  .then(function(subscription) {
+  .then(subscription => {
     if (subscription === null) {
       throw new Error('No subscription currently available.');
     }
 
     // Create hit data
-    var payloadData = {
+    const payloadData = {
       // Version Number
       v: 1,
       // Client ID
@@ -61,11 +60,11 @@ function sendAnalyticsEvent(eventAction, eventCategory) {
     };
 
     // Format hit data into URI
-    var payloadString = Object.keys(payloadData)
-    .filter(function(analyticsKey) {
+    const payloadString = Object.keys(payloadData)
+    .filter(analyticsKey => {
       return payloadData[analyticsKey];
     })
-    .map(function(analyticsKey) {
+    .map(analyticsKey => {
       return analyticsKey + '=' + encodeURIComponent(payloadData[analyticsKey]);
     })
     .join('&');
@@ -76,20 +75,20 @@ function sendAnalyticsEvent(eventAction, eventCategory) {
       body: payloadString
     });
   })
-  .then(function(response) {
+  .then(response => {
     if (!response.ok) {
       return response.text()
-      .then(function(responseText) {
+      .then(responseText => {
         throw new Error(
           'Bad response from Google Analytics:\n' + response.status
         );
       });
     } else {
       console.log(eventCategory + '/' + eventAction +
-        'hit sent, check the Analytics dashboard');
+        ' hit sent, check the Analytics dashboard');
     }
   })
   .catch(function(err) {
     console.warn('Unable to send the analytics event', err);
   });
-}
+};
