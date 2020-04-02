@@ -17,18 +17,11 @@ limitations under the License.
 // TODO 3.8 - push a message using the web push library
 const webPush = require('web-push');
 
-const pushSubscription = {
-    "endpoint": "https://fcm.googleapis.com/fcm/send/f9S8kOzPe1Y:APA91bFq9m5A7WR3YL60yO7_5POLg6Tp32Mb5qX2MEg0psZrm9VKH0tnq4jtcKksvkL_cA2Ty67ZD0rcuV-3CLYLIkT1QNeRYtlplAif5fLRCPItmxO8nz29zPt1GtZ1pDb-rVZ21Iu3",
-    "expirationTime": null,
-    "keys": {
-        "p256dh": "BAE1Bk8Qx-9O5VKzNwE6XCdUXSMoPEq-Ve-B-nsTrpkGQ4FsQxsCxtL7-C2YFlWgJLFvyjaLXJKrezQ-SS73bZI",
-        "auth": "t8zeNga_qX9qlJ0eH8AgXQ"
-    }
-};
+const pushSubscription = {"endpoint":"https://fcm.googleapis.com/fcm/send/cAXtvqc5l8k:APA91bFXZuxEdlwXRsqQgiZAOIrpjdQuA8hZX0YPG2RWG9VTxToImB3apIPwCiQgarcRLJ2bnYtBoO3_I49bCFovuO566yoIDCxPMwBuqDVtIp66u3dvLhxilGcFmGFEUFz8fGhG61f7","expirationTime":null,"keys":{"p256dh":"BKqoKcPqUnZ2lqVDgLKP8iz7TIWq9y7dMJ6ZTVITy-uK47qnKtD312YedWcVzYx_Ib9CviuLPggYENPgWCmCgRE","auth":"HtF98CLp-1kp9WqM6dr5wg"}}
 
 // TODO 4.3a - include VAPID keys
-const vapidPublicKey = 'BKrMB5VoRgrYcJ4yjcTk2BHhsOK2XzGpKv379pUoYGLYV93kEt1QdDKe14igMbNMTZ8ytiD7umZ-g0U_5cPTS08';
-const vapidPrivateKey = 'AFvbeQvXZCHk4acEK0GKrCpLIaxNvoskibnyuUoe3OU';
+const vapidPublicKey = 'BFCV2QdN0JH3f5EAf6PaA4lEOsKZTcmxI9f4aLyNv3paUF-NOf6dt-6uulkwYaq2q6017X1G3Tga4sKkPVv0gtI';
+const vapidPrivateKey = 'Vqi25PCQs6CdmWLcjPaC1jsm6sMAnKMas4xpWSCEP6s';
 
 const payload = 'Hello from server!';
 
@@ -39,7 +32,7 @@ const options = {
         subject: 'mailto: harit.subscriptions@gmail.com',
         publicKey: vapidPublicKey,
         privateKey: vapidPrivateKey
-      }
+    }
 };
 
 let f = () => webPush.sendNotification(

@@ -94,7 +94,7 @@ const app = (() => {
   }
 
   // TODO 4.2a - add VAPID public key
-  const applicationServerPublicKey = 'BKrMB5VoRgrYcJ4yjcTk2BHhsOK2XzGpKv379pUoYGLYV93kEt1QdDKe14igMbNMTZ8ytiD7umZ-g0U_5cPTS08';
+  const applicationServerPublicKey = 'BFCV2QdN0JH3f5EAf6PaA4lEOsKZTcmxI9f4aLyNv3paUF-NOf6dt-6uulkwYaq2q6017X1G3Tga4sKkPVv0gtI';
 
   // TODO 3.4 - subscribe to the push service
   function subscribeUser() {
