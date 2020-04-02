@@ -17,7 +17,7 @@ limitations under the License.
 // TODO 3.8 - push a message using the web push library
 const webPush = require('web-push');
 
-const pushSubscription = {"endpoint":"https://fcm.googleapis.com/fcm/send/cAXtvqc5l8k:APA91bFXZuxEdlwXRsqQgiZAOIrpjdQuA8hZX0YPG2RWG9VTxToImB3apIPwCiQgarcRLJ2bnYtBoO3_I49bCFovuO566yoIDCxPMwBuqDVtIp66u3dvLhxilGcFmGFEUFz8fGhG61f7","expirationTime":null,"keys":{"p256dh":"BKqoKcPqUnZ2lqVDgLKP8iz7TIWq9y7dMJ6ZTVITy-uK47qnKtD312YedWcVzYx_Ib9CviuLPggYENPgWCmCgRE","auth":"HtF98CLp-1kp9WqM6dr5wg"}}
+const pushSubscription = {"endpoint":"https://fcm.googleapis.com/fcm/send/cB2JUdnLbGs:APA91bGtZpqMz-Ee2klmnETpSvcOYQAS0TpKJEksVOYHeEq-DBYHyDuZTHXC5oLyHd7Oaz2djEVdnfDINSws1azfBLeqH9SSPZQmC65Zk89taSfhCh7xeTp2_mgyPa8-QaYxR4PFfcm2","expirationTime":null,"keys":{"p256dh":"BKhBx6DfXSuPWHXOQS-x1llZTK3T2FXT4Yk45MkpFuPHcrRjUWq-2eSBglED5Da6SHRoDlhDvFmV6r_RL_nBvVk","auth":"vzMOUXUtHgo13zE7Ujxhxw"}}
 
 // TODO 4.3a - include VAPID keys
 const vapidPublicKey = 'BFCV2QdN0JH3f5EAf6PaA4lEOsKZTcmxI9f4aLyNv3paUF-NOf6dt-6uulkwYaq2q6017X1G3Tga4sKkPVv0gtI';
@@ -41,4 +41,5 @@ let f = () => webPush.sendNotification(
     options
 );
 
-setInterval(f, 3000)
+// f() // for one-time notification
+setInterval(f, 3000) // for recurring notification
